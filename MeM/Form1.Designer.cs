@@ -34,6 +34,8 @@ namespace Memory_Allocation_Segmentation
             this.button3 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.Holes = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.num_holes = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.Size_hole = new System.Windows.Forms.TextBox();
@@ -58,8 +60,6 @@ namespace Memory_Allocation_Segmentation
             this.Deallocate = new System.Windows.Forms.ComboBox();
             this.Draw = new System.Windows.Forms.Button();
             this.Clear = new System.Windows.Forms.Button();
-            this.num_holes = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.Memory.SuspendLayout();
             this.Holes.SuspendLayout();
             this.Alloc_type.SuspendLayout();
@@ -129,6 +129,25 @@ namespace Memory_Allocation_Segmentation
             this.Holes.TabIndex = 10;
             this.Holes.TabStop = false;
             this.Holes.Text = "Holes";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(21, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(114, 17);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Number of Holes";
+            // 
+            // num_holes
+            // 
+            this.num_holes.Location = new System.Drawing.Point(170, 29);
+            this.num_holes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.num_holes.Name = "num_holes";
+            this.num_holes.Size = new System.Drawing.Size(167, 22);
+            this.num_holes.TabIndex = 8;
+            this.num_holes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.num_holes_KeyDown);
+            this.num_holes.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.num_holes_KeyPress);
             // 
             // label6
             // 
@@ -293,6 +312,7 @@ namespace Memory_Allocation_Segmentation
             this.Size_Segment.Size = new System.Drawing.Size(167, 22);
             this.Size_Segment.TabIndex = 3;
             this.Size_Segment.TextChanged += new System.EventHandler(this.Size_Segment_TextChanged);
+            this.Size_Segment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Size_Segment_KeyPress);
             // 
             // Name_Segment
             // 
@@ -301,6 +321,7 @@ namespace Memory_Allocation_Segmentation
             this.Name_Segment.Name = "Name_Segment";
             this.Name_Segment.Size = new System.Drawing.Size(167, 22);
             this.Name_Segment.TabIndex = 2;
+            this.Name_Segment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Name_Segment_KeyPress);
             // 
             // label3
             // 
@@ -327,6 +348,7 @@ namespace Memory_Allocation_Segmentation
             this.Num_Segments.Name = "Num_Segments";
             this.Num_Segments.Size = new System.Drawing.Size(167, 22);
             this.Num_Segments.TabIndex = 1;
+            this.Num_Segments.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Num_Segments_KeyPress);
             // 
             // label1
             // 
@@ -388,24 +410,6 @@ namespace Memory_Allocation_Segmentation
             this.Clear.TabIndex = 16;
             this.Clear.Text = "Clear";
             this.Clear.UseVisualStyleBackColor = true;
-            // 
-            // num_holes
-            // 
-            this.num_holes.Location = new System.Drawing.Point(170, 29);
-            this.num_holes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.num_holes.Name = "num_holes";
-            this.num_holes.Size = new System.Drawing.Size(167, 22);
-            this.num_holes.TabIndex = 8;
-            this.num_holes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.num_holes_KeyDown);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(114, 17);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Number of Holes";
             // 
             // Form1
             // 
