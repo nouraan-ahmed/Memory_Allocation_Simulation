@@ -591,9 +591,45 @@ namespace Memory_Allocation_Segmentation
 
         }
 
-        private void Restart_Click(object sender, EventArgs e)
+        private void Restart_Click_1(object sender, EventArgs e)
         {
+            Clear_Click(Clear, e);
+            memory_size.Enabled = true;
+            memory_size.Clear();
+            num_holes.Enabled = true;
+            num_holes.Clear();
+            Start_Address_hole.Clear();
+            Size_hole.Clear();
+            Size_hole.Enabled = true;
+            Memory.Enabled = true;
 
+
+            Num_Segments.Clear();
+            Num_Segments.Enabled = true;
+            Name_Segment.Clear();
+            Name_Segment.Clear();
+            Segment.Enabled = false;
+
+            // Allocation_list.SelectedItem = null;
+            //Allocation_list.Text = "Method Of Allocation";
+            //Deallocate.SelectedItem = null;
+            //Deallocate.Text = "Process";
+
+            MEMORY.RemoveRange(0, MEMORY.Count);
+            mem_count = 0;
+            // start = 0;
+            old_count = 0;
+            process_count = 1;
+            segment_count = 0;
+            count_holes = 0; //number of holes
+
+            //Deallocate.Items.Clear();
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+            Application.ExitThread();
         }
     }
     public class Block

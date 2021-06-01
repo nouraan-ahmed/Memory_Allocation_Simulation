@@ -61,6 +61,8 @@ namespace Memory_Allocation_Segmentation
             this.Draw = new System.Windows.Forms.Button();
             this.Clear = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Restart = new System.Windows.Forms.Button();
+            this.Exit = new System.Windows.Forms.Button();
             this.Memory.SuspendLayout();
             this.Holes.SuspendLayout();
             this.Alloc_type.SuspendLayout();
@@ -425,11 +427,34 @@ namespace Memory_Allocation_Segmentation
             this.panel1.TabIndex = 17;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
             // 
+            // Restart
+            // 
+            this.Restart.Location = new System.Drawing.Point(21, 836);
+            this.Restart.Name = "Restart";
+            this.Restart.Size = new System.Drawing.Size(164, 58);
+            this.Restart.TabIndex = 18;
+            this.Restart.Text = "Restart";
+            this.Restart.UseVisualStyleBackColor = true;
+            this.Restart.Click += new System.EventHandler(this.Restart_Click_1);
+            // 
+            // Exit
+            // 
+            this.Exit.Location = new System.Drawing.Point(273, 836);
+            this.Exit.Name = "Exit";
+            this.Exit.Size = new System.Drawing.Size(164, 58);
+            this.Exit.TabIndex = 19;
+            this.Exit.Text = "Exit";
+            this.Exit.UseVisualStyleBackColor = true;
+            this.Exit.Click += new System.EventHandler(this.Exit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1023, 865);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1023, 912);
+            this.Controls.Add(this.Exit);
+            this.Controls.Add(this.Restart);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Clear);
             this.Controls.Add(this.Draw);
@@ -490,6 +515,8 @@ namespace Memory_Allocation_Segmentation
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox num_holes;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button Restart;
+        private System.Windows.Forms.Button Exit;
     }
 }
 
