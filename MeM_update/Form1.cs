@@ -297,7 +297,6 @@ namespace Memory_Allocation_Segmentation
 
         private void Add_Segments_Click(object sender, EventArgs e)
         {
-           
             if (MEMORY.Find(X => X.Name == "Hole") == null)
             {
                 MessageBox.Show(" Memory is Busy , There's no Holes");
@@ -324,12 +323,15 @@ namespace Memory_Allocation_Segmentation
                         Dealloc_Process.Enabled = true;
                         Deallocate.Items.Add("P" + process_count);
                         segment_count = 0;
+                    }
+                    else if(segment_count == Nu_seg)
+                    {
                         process_count++;
                     }
                     if (alloc_type == "First Fit")
                     {
                         int i;
-                        for (i = 0; i < MEMORY.Count(); i++)
+                        for (i = 0; i < MEMORY.Count; i++)
                         {
                             if (MEMORY[i].Name == "Hole")
                             {
@@ -348,8 +350,10 @@ namespace Memory_Allocation_Segmentation
                                     MEMORY[i].Start_add = MEMORY[i].Start_add + seg_size;
                                     MEMORY[i].Size = MEMORY[i].Size - seg_size;
 
-                                    //satr ma3gpnesh
+                                    MEMORY = MEMORY.OrderBy(X => X.Start_add).ToList();
                                     segment_count++;
+                                    Name_Segment.Clear();
+                                    Size_Segment.Clear();
                                     return;
                                 }
                             }
@@ -358,9 +362,12 @@ namespace Memory_Allocation_Segmentation
                         {
                             MessageBox.Show("Process doesn't fit");
                         }
+
                     }
                     else if (alloc_type == "Best Fit")
                     {
+                        if (SortedHoles.Count != 0)
+                            SortedHoles.RemoveRange(0, SortedHoles.Count);
                         int k;
                         for (k = 0; k < MEMORY.Count; k++)
                         {
@@ -372,13 +379,13 @@ namespace Memory_Allocation_Segmentation
                         // sort the list of holes ascending (size)
                         SortedHoles = SortedHoles.OrderBy(v => v.Size).ToList();
                         int i;
-                        for (i = 0; i < SortedHoles.Count(); i++)
+                        for (i = 0; i < SortedHoles.Count; i++)
                         {
                             if (SortedHoles[i].Size == seg_size)
                             {
                                 SortedHoles[i].Name = "P" + process_count + ":" + seg_name;
                                 segment_count++;
-                                return;
+                                break;
                             }
                             else if (SortedHoles[i].Size > seg_size)
                             {
@@ -388,18 +395,19 @@ namespace Memory_Allocation_Segmentation
                                 //new hole
                                 SortedHoles[i].Start_add = SortedHoles[i].Start_add + seg_size;
                                 SortedHoles[i].Size = SortedHoles[i].Size - seg_size;
-
+                                SortedHoles = SortedHoles.OrderBy(X => X.Start_add).ToList();
                                 segment_count++;
-                                return;
+                                break;
                             }
                         }
 
                         MEMORY.RemoveAll(r => r.Name == "Hole");
                         for (int j = 0; j < SortedHoles.Count; j++)
                         {
-                            MEMORY.Add(new Block(SortedHoles[j].Name, SortedHoles[j].Size, SortedHoles[j].Size));
+                            MEMORY.Add(new Block(SortedHoles[j].Name, SortedHoles[j].Start_add,
+                                SortedHoles[j].Size));
                         }
-                        MEMORY.OrderBy(r => r.Start_add).ToList();
+                        MEMORY=MEMORY.OrderBy(r => r.Start_add).ToList();
                         if (i == SortedHoles.Count)
                         {
                             MessageBox.Show("Memory Limit Exceeded");
@@ -411,6 +419,8 @@ namespace Memory_Allocation_Segmentation
 
                     else if (alloc_type == "Worst Fit")
                     {
+                        if (SortedHoles.Count != 0)
+                            SortedHoles.RemoveRange(0, SortedHoles.Count);
                         int k;
                         for (k = 0; k < MEMORY.Count; k++)
                         {
@@ -428,7 +438,7 @@ namespace Memory_Allocation_Segmentation
                             {
                                 SortedHoles[i].Name = "P" + process_count + ":" + seg_name;
                                 segment_count++;
-                                return;
+                                break;
                             }
                             else if (SortedHoles[i].Size > seg_size)
                             {
@@ -438,18 +448,19 @@ namespace Memory_Allocation_Segmentation
                                 //new hole
                                 SortedHoles[i].Start_add = SortedHoles[i].Start_add + seg_size;
                                 SortedHoles[i].Size = SortedHoles[i].Size - seg_size;
-
+                                SortedHoles = SortedHoles.OrderBy(X => X.Start_add).ToList();
                                 segment_count++;
-                                return;
+                                break;
                             }
                         }
                         // remove holes
                         MEMORY.RemoveAll(r => r.Name == "Hole");
                         for (int j = 0; j < SortedHoles.Count; j++)
                         {
-                            MEMORY.Add(new Block(SortedHoles[j].Name, SortedHoles[j].Size, SortedHoles[j].Size));
+                            MEMORY.Add(new Block(SortedHoles[j].Name, SortedHoles[j].Start_add, 
+                                SortedHoles[j].Size));
                         }
-                        MEMORY.OrderBy(r => r.Start_add).ToList();
+                        MEMORY = MEMORY.OrderBy(r => r.Start_add).ToList();
                         if (i == -1)
                         {
                             MessageBox.Show("Memory Limit Exceeded");
@@ -463,7 +474,6 @@ namespace Memory_Allocation_Segmentation
 
                 }
             }
-            
 
         }
 
@@ -512,6 +522,76 @@ namespace Memory_Allocation_Segmentation
         }
 
         private void Deallocate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Draw_Click(object sender, EventArgs e)
+        {
+
+            if (MEMORY.Count == 0)
+            {
+                MessageBox.Show("Please enter Holes first");
+                return;
+            }
+            Clear_Click(Clear, e);
+            if(!(MEMORY.Count == 0))
+            { 
+                int holeNum = 0;
+                int heighet = 10;//to save the height
+
+                for (int i = 0; i < MEMORY.Count; i++)
+                {
+                    TextBox draw = new TextBox();
+                    draw.Location = new Point(5, heighet);
+                    Label size = new Label();
+                    size.Location = new Point(150, heighet);
+                    size.Name = "size";
+                    size.Text = MEMORY[i].Start_add.ToString();
+                    draw.Multiline = true;
+                    draw.Height = MEMORY[i].Size + 10;
+                    draw.Name = "draw";
+                    draw.TextAlign = HorizontalAlignment.Center;
+                   
+                    if (MEMORY[i].Name == "Hole")
+                    {
+                        draw.Text = "Hole" + holeNum;
+                        draw.BackColor = Color.DarkOrange;
+                        holeNum++;
+                    }
+                    else
+                    {
+                        draw.Text = MEMORY[i].Name;
+                        draw.BackColor = Color.Red;
+                    }
+                    panel1.Controls.Add(draw);
+                    panel1.Show();
+                    panel1.Controls.Add(size);
+                    panel1.Show();
+                    heighet += MEMORY[i].Size + 10;
+
+                }
+                Label size1 = new Label();
+                size1.Location = new Point(150, heighet);
+                size1.Name = "size1";
+                size1.Text = Mem_Size.ToString();
+                panel1.Controls.Add(size1);
+                panel1.Show();
+            }
+
+        }
+
+        private void Clear_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Restart_Click(object sender, EventArgs e)
         {
 
         }
