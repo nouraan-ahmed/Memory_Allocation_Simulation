@@ -56,13 +56,13 @@ namespace Memory_Allocation_Segmentation
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Dealloc_Process = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.Deallocate = new System.Windows.Forms.ComboBox();
             this.Draw = new System.Windows.Forms.Button();
             this.Clear = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Restart = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
+            this.Deallocate_btn = new System.Windows.Forms.Button();
+            this.Shuffalling_Memory = new System.Windows.Forms.Button();
             this.Memory.SuspendLayout();
             this.Holes.SuspendLayout();
             this.Alloc_type.SuspendLayout();
@@ -97,13 +97,14 @@ namespace Memory_Allocation_Segmentation
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.LightSteelBlue;
             this.button3.Location = new System.Drawing.Point(220, 65);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(115, 39);
             this.button3.TabIndex = 8;
             this.button3.Text = "OK";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label5
@@ -144,10 +145,10 @@ namespace Memory_Allocation_Segmentation
             // 
             // num_holes
             // 
-            this.num_holes.Location = new System.Drawing.Point(171, 30);
+            this.num_holes.Location = new System.Drawing.Point(171, 34);
             this.num_holes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.num_holes.Name = "num_holes";
-            this.num_holes.Size = new System.Drawing.Size(167, 22);
+            this.num_holes.Size = new System.Drawing.Size(111, 22);
             this.num_holes.TabIndex = 8;
             this.num_holes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.num_holes_KeyDown);
             this.num_holes.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.num_holes_KeyPress);
@@ -192,13 +193,14 @@ namespace Memory_Allocation_Segmentation
             // 
             // Add_Hole
             // 
+            this.Add_Hole.BackColor = System.Drawing.Color.LightSteelBlue;
             this.Add_Hole.Location = new System.Drawing.Point(169, 154);
             this.Add_Hole.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Add_Hole.Name = "Add_Hole";
             this.Add_Hole.Size = new System.Drawing.Size(168, 44);
             this.Add_Hole.TabIndex = 1;
             this.Add_Hole.Text = "Add New Hole";
-            this.Add_Hole.UseVisualStyleBackColor = true;
+            this.Add_Hole.UseVisualStyleBackColor = false;
             this.Add_Hole.Click += new System.EventHandler(this.Add_Hole_Click);
             // 
             // Alloc_type
@@ -269,13 +271,14 @@ namespace Memory_Allocation_Segmentation
             // 
             // Add_Process
             // 
+            this.Add_Process.BackColor = System.Drawing.Color.LightSteelBlue;
             this.Add_Process.Location = new System.Drawing.Point(76, 226);
             this.Add_Process.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Add_Process.Name = "Add_Process";
             this.Add_Process.Size = new System.Drawing.Size(233, 42);
             this.Add_Process.TabIndex = 3;
             this.Add_Process.Text = "Add Process";
-            this.Add_Process.UseVisualStyleBackColor = true;
+            this.Add_Process.UseVisualStyleBackColor = false;
             this.Add_Process.Click += new System.EventHandler(this.Add_Process_Click);
             // 
             // Segment
@@ -298,13 +301,14 @@ namespace Memory_Allocation_Segmentation
             // 
             // Add_Segments
             // 
-            this.Add_Segments.Location = new System.Drawing.Point(187, 153);
+            this.Add_Segments.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.Add_Segments.Location = new System.Drawing.Point(173, 141);
             this.Add_Segments.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Add_Segments.Name = "Add_Segments";
             this.Add_Segments.Size = new System.Drawing.Size(141, 36);
             this.Add_Segments.TabIndex = 4;
             this.Add_Segments.Text = "Add Segment";
-            this.Add_Segments.UseVisualStyleBackColor = true;
+            this.Add_Segments.UseVisualStyleBackColor = false;
             this.Add_Segments.Click += new System.EventHandler(this.Add_Segments_Click);
             // 
             // Size_Segment
@@ -341,7 +345,7 @@ namespace Memory_Allocation_Segmentation
             this.Num_Segments.Location = new System.Drawing.Point(160, 47);
             this.Num_Segments.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Num_Segments.Name = "Num_Segments";
-            this.Num_Segments.Size = new System.Drawing.Size(167, 22);
+            this.Num_Segments.Size = new System.Drawing.Size(111, 22);
             this.Num_Segments.TabIndex = 1;
             this.Num_Segments.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Num_Segments_KeyPress);
             // 
@@ -365,7 +369,7 @@ namespace Memory_Allocation_Segmentation
             // 
             // Dealloc_Process
             // 
-            this.Dealloc_Process.Controls.Add(this.button1);
+            this.Dealloc_Process.Controls.Add(this.Deallocate_btn);
             this.Dealloc_Process.Controls.Add(this.Deallocate);
             this.Dealloc_Process.Location = new System.Drawing.Point(499, 26);
             this.Dealloc_Process.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -375,16 +379,6 @@ namespace Memory_Allocation_Segmentation
             this.Dealloc_Process.TabIndex = 14;
             this.Dealloc_Process.TabStop = false;
             this.Dealloc_Process.Text = "Deallocate Process";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(268, 46);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "DeAllocate";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // Deallocate
             // 
@@ -398,63 +392,81 @@ namespace Memory_Allocation_Segmentation
             // 
             // Draw
             // 
-            this.Draw.Location = new System.Drawing.Point(531, 177);
+            this.Draw.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.Draw.Location = new System.Drawing.Point(516, 167);
             this.Draw.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Draw.Name = "Draw";
-            this.Draw.Size = new System.Drawing.Size(104, 23);
+            this.Draw.Size = new System.Drawing.Size(123, 32);
             this.Draw.TabIndex = 15;
             this.Draw.Text = "Draw";
-            this.Draw.UseVisualStyleBackColor = true;
+            this.Draw.UseVisualStyleBackColor = false;
             this.Draw.Click += new System.EventHandler(this.Draw_Click);
             // 
             // Clear
             // 
-            this.Clear.Location = new System.Drawing.Point(788, 177);
+            this.Clear.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.Clear.Location = new System.Drawing.Point(659, 167);
             this.Clear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Clear.Name = "Clear";
-            this.Clear.Size = new System.Drawing.Size(98, 23);
+            this.Clear.Size = new System.Drawing.Size(112, 32);
             this.Clear.TabIndex = 16;
             this.Clear.Text = "Clear";
-            this.Clear.UseVisualStyleBackColor = true;
+            this.Clear.UseVisualStyleBackColor = false;
             this.Clear.Click += new System.EventHandler(this.Clear_Click);
             // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(516, 205);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(419, 608);
             this.panel1.TabIndex = 17;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
             // 
-            // Restart
-            // 
-            this.Restart.Location = new System.Drawing.Point(21, 836);
-            this.Restart.Name = "Restart";
-            this.Restart.Size = new System.Drawing.Size(164, 58);
-            this.Restart.TabIndex = 18;
-            this.Restart.Text = "Restart";
-            this.Restart.UseVisualStyleBackColor = true;
-            this.Restart.Click += new System.EventHandler(this.Restart_Click_1);
-            // 
             // Exit
             // 
-            this.Exit.Location = new System.Drawing.Point(273, 836);
+            this.Exit.BackColor = System.Drawing.Color.Red;
+            this.Exit.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Exit.Location = new System.Drawing.Point(314, 845);
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(164, 58);
+            this.Exit.Size = new System.Drawing.Size(312, 42);
             this.Exit.TabIndex = 19;
-            this.Exit.Text = "Exit";
-            this.Exit.UseVisualStyleBackColor = true;
+            this.Exit.Text = "Restart";
+            this.Exit.UseVisualStyleBackColor = false;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
+            // 
+            // Deallocate_btn
+            // 
+            this.Deallocate_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.Deallocate_btn.Location = new System.Drawing.Point(269, 46);
+            this.Deallocate_btn.Name = "Deallocate_btn";
+            this.Deallocate_btn.Size = new System.Drawing.Size(142, 24);
+            this.Deallocate_btn.TabIndex = 2;
+            this.Deallocate_btn.Text = "Deallocate";
+            this.Deallocate_btn.UseVisualStyleBackColor = false;
+            this.Deallocate_btn.Click += new System.EventHandler(this.Deallocate_btn_Click);
+            // 
+            // Shuffalling_Memory
+            // 
+            this.Shuffalling_Memory.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.Shuffalling_Memory.Location = new System.Drawing.Point(791, 167);
+            this.Shuffalling_Memory.Name = "Shuffalling_Memory";
+            this.Shuffalling_Memory.Size = new System.Drawing.Size(144, 32);
+            this.Shuffalling_Memory.TabIndex = 20;
+            this.Shuffalling_Memory.Text = "Shuffalling Memory";
+            this.Shuffalling_Memory.UseVisualStyleBackColor = false;
+            this.Shuffalling_Memory.Click += new System.EventHandler(this.Shuffalling_Memory_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.ClientSize = new System.Drawing.Size(1023, 912);
+            this.Controls.Add(this.Shuffalling_Memory);
             this.Controls.Add(this.Exit);
-            this.Controls.Add(this.Restart);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Clear);
             this.Controls.Add(this.Draw);
@@ -508,15 +520,15 @@ namespace Memory_Allocation_Segmentation
         private System.Windows.Forms.TextBox Num_Segments;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox Dealloc_Process;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox Deallocate;
         private System.Windows.Forms.Button Draw;
         private System.Windows.Forms.Button Clear;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox num_holes;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button Restart;
         private System.Windows.Forms.Button Exit;
+        private System.Windows.Forms.Button Deallocate_btn;
+        private System.Windows.Forms.Button Shuffalling_Memory;
     }
 }
 

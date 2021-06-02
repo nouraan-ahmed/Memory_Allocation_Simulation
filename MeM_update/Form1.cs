@@ -213,6 +213,7 @@ namespace Memory_Allocation_Segmentation
                 Process.Enabled = true;
                 Segment.Enabled = false;
                 allocate_old_process();
+                Dealloc_Process.Enabled = true;
 
             }
             Start_Address_hole.Clear();
@@ -289,9 +290,6 @@ namespace Memory_Allocation_Segmentation
                 MessageBox.Show("Choose allocation type");
             }
             
-            
-            
-            
 
         }
 
@@ -316,18 +314,6 @@ namespace Memory_Allocation_Segmentation
                     Num_Segments.Enabled = false;
                     seg_name = Name_Segment.Text;
                     seg_size = int.Parse(Size_Segment.Text);
-                    if (segment_count == Nu_seg-1)
-                    {
-                        Segment.Enabled = false;
-                        Num_Segments.Enabled = false;
-                        Dealloc_Process.Enabled = true;
-                        Deallocate.Items.Add("P" + process_count);
-                        segment_count = 0;
-                    }
-                    else if(segment_count == Nu_seg)
-                    {
-                        process_count++;
-                    }
                     if (alloc_type == "First Fit")
                     {
                         int i;
@@ -339,6 +325,15 @@ namespace Memory_Allocation_Segmentation
                                 {
                                     MEMORY[i].Name = "P" + process_count + ":" + seg_name;
                                     segment_count++;
+                                    if (segment_count == Nu_seg)
+                                    {
+                                        Segment.Enabled = false;
+                                        Num_Segments.Enabled = false;
+                                        Dealloc_Process.Enabled = true;
+                                        Deallocate.Items.Add("P" + process_count);
+                                        process_count++;
+                                        segment_count = 0;
+                                    }
                                     return;
                                 }
                                 else if (MEMORY[i].Size > seg_size)
@@ -354,6 +349,15 @@ namespace Memory_Allocation_Segmentation
                                     segment_count++;
                                     Name_Segment.Clear();
                                     Size_Segment.Clear();
+                                    if (segment_count == Nu_seg)
+                                    {
+                                        Segment.Enabled = false;
+                                        Num_Segments.Enabled = false;
+                                        Dealloc_Process.Enabled = true;
+                                        Deallocate.Items.Add("P" + process_count);
+                                        process_count++;
+                                        segment_count = 0;
+                                    }
                                     return;
                                 }
                             }
@@ -361,6 +365,8 @@ namespace Memory_Allocation_Segmentation
                         if (i == MEMORY.Count)
                         {
                             MessageBox.Show("Process doesn't fit");
+                            dealloc("P" + process_count);
+                            segment_count = 0;
                         }
 
                     }
@@ -384,7 +390,18 @@ namespace Memory_Allocation_Segmentation
                             if (SortedHoles[i].Size == seg_size)
                             {
                                 SortedHoles[i].Name = "P" + process_count + ":" + seg_name;
+                                Name_Segment.Clear();
+                                Size_Segment.Clear();
                                 segment_count++;
+                                if (segment_count == Nu_seg)
+                                {
+                                    Segment.Enabled = false;
+                                    Num_Segments.Enabled = false;
+                                    Dealloc_Process.Enabled = true;
+                                    Deallocate.Items.Add("P" + process_count);
+                                    process_count++;
+                                    segment_count = 0;
+                                }
                                 break;
                             }
                             else if (SortedHoles[i].Size > seg_size)
@@ -396,7 +413,18 @@ namespace Memory_Allocation_Segmentation
                                 SortedHoles[i].Start_add = SortedHoles[i].Start_add + seg_size;
                                 SortedHoles[i].Size = SortedHoles[i].Size - seg_size;
                                 SortedHoles = SortedHoles.OrderBy(X => X.Start_add).ToList();
+                                Name_Segment.Clear();
+                                Size_Segment.Clear();
                                 segment_count++;
+                                if (segment_count == Nu_seg)
+                                {
+                                    Segment.Enabled = false;
+                                    Num_Segments.Enabled = false;
+                                    Dealloc_Process.Enabled = true;
+                                    Deallocate.Items.Add("P" + process_count);
+                                    process_count++;
+                                    segment_count = 0;
+                                }
                                 break;
                             }
                         }
@@ -411,7 +439,7 @@ namespace Memory_Allocation_Segmentation
                         if (i == SortedHoles.Count)
                         {
                             MessageBox.Show("Memory Limit Exceeded");
-                            //deallocate
+                            dealloc("P" + process_count);
                             segment_count = 0;
                         }
 
@@ -437,7 +465,18 @@ namespace Memory_Allocation_Segmentation
                             if (SortedHoles[i].Size == seg_size)
                             {
                                 SortedHoles[i].Name = "P" + process_count + ":" + seg_name;
+                                Name_Segment.Clear();
+                                Size_Segment.Clear();
                                 segment_count++;
+                                if (segment_count == Nu_seg)
+                                {
+                                    Segment.Enabled = false;
+                                    Num_Segments.Enabled = false;
+                                    Dealloc_Process.Enabled = true;
+                                    Deallocate.Items.Add("P" + process_count);
+                                    process_count++;
+                                    segment_count = 0;
+                                }
                                 break;
                             }
                             else if (SortedHoles[i].Size > seg_size)
@@ -449,7 +488,18 @@ namespace Memory_Allocation_Segmentation
                                 SortedHoles[i].Start_add = SortedHoles[i].Start_add + seg_size;
                                 SortedHoles[i].Size = SortedHoles[i].Size - seg_size;
                                 SortedHoles = SortedHoles.OrderBy(X => X.Start_add).ToList();
+                                Name_Segment.Clear();
+                                Size_Segment.Clear();
                                 segment_count++;
+                                if (segment_count == Nu_seg)
+                                {
+                                    Segment.Enabled = false;
+                                    Num_Segments.Enabled = false;
+                                    Dealloc_Process.Enabled = true;
+                                    Deallocate.Items.Add("P" + process_count);
+                                    process_count++;
+                                    segment_count = 0;
+                                }
                                 break;
                             }
                         }
@@ -464,7 +514,7 @@ namespace Memory_Allocation_Segmentation
                         if (i == -1)
                         {
                             MessageBox.Show("Memory Limit Exceeded");
-                            //deallocate
+                            dealloc("P" + process_count);
                             segment_count = 0;
                         }
 
@@ -545,11 +595,11 @@ namespace Memory_Allocation_Segmentation
                     TextBox draw = new TextBox();
                     draw.Location = new Point(5, heighet);
                     Label size = new Label();
-                    size.Location = new Point(150, heighet);
+                    size.Location = new Point(130, heighet);
                     size.Name = "size";
                     size.Text = MEMORY[i].Start_add.ToString();
                     draw.Multiline = true;
-                    draw.Height = MEMORY[i].Size + 10;
+                    draw.Height = MEMORY[i].Size + 20;
                     draw.Name = "draw";
                     draw.TextAlign = HorizontalAlignment.Center;
                    
@@ -568,11 +618,11 @@ namespace Memory_Allocation_Segmentation
                     panel1.Show();
                     panel1.Controls.Add(size);
                     panel1.Show();
-                    heighet += MEMORY[i].Size + 10;
+                    heighet += MEMORY[i].Size + 20;
 
                 }
                 Label size1 = new Label();
-                size1.Location = new Point(150, heighet);
+                size1.Location = new Point(130, heighet);
                 size1.Name = "size1";
                 size1.Text = Mem_Size.ToString();
                 panel1.Controls.Add(size1);
@@ -591,45 +641,211 @@ namespace Memory_Allocation_Segmentation
 
         }
 
-        private void Restart_Click_1(object sender, EventArgs e)
-        {
-            Clear_Click(Clear, e);
-            memory_size.Enabled = true;
-            memory_size.Clear();
-            num_holes.Enabled = true;
-            num_holes.Clear();
-            Start_Address_hole.Clear();
-            Size_hole.Clear();
-            Size_hole.Enabled = true;
-            Memory.Enabled = true;
-
-
-            Num_Segments.Clear();
-            Num_Segments.Enabled = true;
-            Name_Segment.Clear();
-            Name_Segment.Clear();
-            Segment.Enabled = false;
-
-            // Allocation_list.SelectedItem = null;
-            //Allocation_list.Text = "Method Of Allocation";
-            //Deallocate.SelectedItem = null;
-            //Deallocate.Text = "Process";
-
-            MEMORY.RemoveRange(0, MEMORY.Count);
-            mem_count = 0;
-            // start = 0;
-            old_count = 0;
-            process_count = 1;
-            segment_count = 0;
-            count_holes = 0; //number of holes
-
-            //Deallocate.Items.Clear();
-        }
-
         private void Exit_Click(object sender, EventArgs e)
         {
             Application.Restart();
             Application.ExitThread();
+        }
+        public void dealloc(string d)
+        {
+            int i;
+            for (i = 0; i < MEMORY.Count; i++)
+            {
+                if (d == (MEMORY[i].Name[0].ToString() + MEMORY[i].Name[1]).ToString())
+                {
+                    if (MEMORY.Count == 1)
+                    {
+                        MEMORY[0].Name = "Hole";
+                        return;
+                    }
+                    if (i == 0)
+                    {
+                        if (MEMORY[i + 1].Name != "Hole")
+                        {
+                            MEMORY[i].Name = "Hole";
+                        }
+                        else if (MEMORY[i + 1].Name == "Hole")
+                        {
+                            MEMORY[i + 1].Start_add = MEMORY[i].Start_add;
+                            MEMORY[i + 1].Size = MEMORY[i + 1].Size + MEMORY[i].Size;
+                            MEMORY.RemoveAt(i);
+                            i--;
+                        }
+                    }
+                    else if (i == MEMORY.Count - 1)
+                    {
+                        if (MEMORY[i - 1].Name != "Hole")
+                        {
+                            MEMORY[i].Name = "Hole";
+                        }
+                        else if (MEMORY[i - 1].Name == "Hole")
+                        {
+                            MEMORY[i - 1].Size = MEMORY[i - 1].Size + MEMORY[i].Size;
+                            MEMORY.RemoveAt(i);
+                            i--;
+                        }
+                    }
+
+                    else //not first or last
+                    {
+                        if (MEMORY[i - 1].Name != "Hole" && MEMORY[i + 1].Name != "Hole")
+                        {
+                            MEMORY[i].Name = "Hole";
+                        }
+                        else if (MEMORY[i - 1].Name != "Hole" && MEMORY[i + 1].Name == "Hole")
+                        {
+
+                            MEMORY[i + 1].Start_add = MEMORY[i].Start_add;
+                            MEMORY[i + 1].Size = MEMORY[i + 1].Size + MEMORY[i].Size;
+                            MEMORY.RemoveAt(i);
+                            i--;
+                        }
+                        else if (MEMORY[i - 1].Name == "Hole" && MEMORY[i + 1].Name != "Hole")
+                        {
+                            MEMORY[i - 1].Size = MEMORY[i - 1].Size + MEMORY[i].Size;
+                            MEMORY.RemoveAt(i);
+                            i--;
+                        }
+                        else if (MEMORY[i - 1].Name == "Hole" && MEMORY[i + 1].Name == "Hole")
+                        {
+                            MEMORY[i - 1].Size = MEMORY[i - 1].Size + MEMORY[i].Size + MEMORY[i + 1].Size;
+                            MEMORY.RemoveAt(i + 1);
+                            MEMORY.RemoveAt(i);
+                            i--;
+                        }
+                    }
+
+                }
+                else if (d == (MEMORY[i].Name))
+                {
+                    if (MEMORY.Count == 1)
+                    {
+                        MEMORY[0].Name = "Hole";
+                        return;
+                    }
+                    if (i == 0)
+                    {
+                        if (MEMORY[i + 1].Name != "Hole")
+                        {
+                            MEMORY[i].Name = "Hole";
+                        }
+
+                        else if (MEMORY[i + 1].Name == "Hole")
+                        {
+                            MEMORY[i + 1].Start_add = MEMORY[i].Start_add;
+                            MEMORY[i + 1].Size = MEMORY[i + 1].Size + MEMORY[i].Size;
+                            MEMORY.RemoveAt(i);
+                            i--;
+                        }
+
+                    }
+                    else if (i == MEMORY.Count - 1)
+                    {
+                        if (MEMORY[i - 1].Name != "Hole")
+                        {
+
+                            MEMORY[i].Name = "Hole";
+                        }
+
+                        else if (MEMORY[i - 1].Name == "Hole")
+                        {
+                            MEMORY[i - 1].Size = MEMORY[i - 1].Size + MEMORY[i].Size;
+                            MEMORY.RemoveAt(i);
+                            i--;
+                        }
+                    }
+                    else if (MEMORY[i - 1].Name != "Hole" && MEMORY[i + 1].Name == "Hole")
+                    {
+                        MEMORY[i + 1].Start_add = MEMORY[i].Start_add;
+                        MEMORY[i + 1].Size = MEMORY[i + 1].Size + MEMORY[i].Size;
+                        MEMORY.RemoveAt(i);
+                        i--;
+                    }
+                    else if (MEMORY[i - 1].Name != "Hole" && MEMORY[i + 1].Name != "Hole")
+                    {
+                        MEMORY[i].Name = "Hole";
+                    }
+                    else if (MEMORY[i - 1].Name == "Hole" && MEMORY[i + 1].Name == "Hole")
+                    {
+
+                        MEMORY[i - 1].Size = MEMORY[i - 1].Size + MEMORY[i].Size + MEMORY[i + 1].Size;
+                        MEMORY.RemoveAt(i + 1);
+                        MEMORY.RemoveAt(i);
+                        i--;
+                    }
+                    else if (MEMORY[i - 1].Name == "Hole" && MEMORY[i + 1].Name != "Hole")
+                    {
+                        MEMORY[i - 1].Size = MEMORY[i - 1].Size + MEMORY[i].Size;
+                        MEMORY.RemoveAt(i);
+                        i--;
+                    }
+                   
+
+                }
+            }
+
+        }
+
+        private void Deallocate_btn_Click(object sender, EventArgs e)
+        {
+            if (Deallocate.SelectedItem == null)
+            {
+                MessageBox.Show("You Must Select Process First ");
+                return;
+            }
+
+            for (int i = 0; i <= process_count; i++)
+            {
+                if (Deallocate.SelectedItem.ToString() == "P" + i)
+                {
+                    dealloc("P" + i);
+                }
+            }
+
+            for (int i = 0; i <= old_count; i++)
+            {
+                if (Deallocate.SelectedItem.ToString() == "Old Process" + i)
+                {
+                    dealloc("Old Process" + i);
+
+                }
+            }
+            Deallocate.Items.RemoveAt(Deallocate.SelectedIndex);
+            Draw_Click(Draw, e);
+        }
+
+        private void Shuffalling_Memory_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < MEMORY.Count - 1; i++)
+            {
+                if (MEMORY[i].Name == "Hole")
+                {
+                    if (MEMORY[i + 1].Name != "Hole")
+                    {
+                        MEMORY[i + 1].Start_add = MEMORY[i].Start_add;
+                        MEMORY[i].Start_add = MEMORY[i + 1].Start_add + MEMORY[i + 1].Size;
+                        MEMORY = MEMORY.OrderBy(X => X.Start_add).ToList();
+                    }
+                    else
+                    {
+                        MEMORY[i].Size += MEMORY[i + 1].Size;
+                        MEMORY.RemoveAt(i + 1);
+                        i--;
+                    }
+
+                }
+
+            }
+            if (MEMORY[MEMORY.Count - 1].Name == "Hole")
+            {
+                if (MEMORY[MEMORY.Count - 2].Name == "Hole")
+                {
+                    MEMORY[MEMORY.Count - 2].Size += MEMORY[MEMORY.Count - 1].Size;
+                    MEMORY.RemoveAt(MEMORY.Count - 1);
+                }
+
+            }
+            Draw_Click(Draw,e);
         }
     }
     public class Block
