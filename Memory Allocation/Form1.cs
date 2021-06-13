@@ -36,6 +36,7 @@ namespace Memory_Allocation_Segmentation
             Dealloc_Process.Enabled = false;
             Alloc_type.Enabled = false;
             Process.Enabled = false;
+            Shuffalling_Memory.Enabled = false;
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -281,6 +282,7 @@ namespace Memory_Allocation_Segmentation
             {
                 Segment.Enabled = true;
                 Num_Segments.Enabled = true;
+                Shuffalling_Memory.Enabled = true;
                 Name_Segment.Clear();
                 Size_Segment.Clear();
                 Num_Segments.Clear();
@@ -606,13 +608,13 @@ namespace Memory_Allocation_Segmentation
                     if (MEMORY[i].Name == "Hole")
                     {
                         draw.Text = "Hole" + holeNum;
-                        draw.BackColor = Color.DarkOrange;
+                        draw.BackColor = Color.AliceBlue;
                         holeNum++;
                     }
                     else
                     {
                         draw.Text = MEMORY[i].Name;
-                        draw.BackColor = Color.Red;
+                        draw.BackColor = Color.SkyBlue;
                     }
                     panel1.Controls.Add(draw);
                     panel1.Show();
